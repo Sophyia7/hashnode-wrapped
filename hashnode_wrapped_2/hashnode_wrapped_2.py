@@ -369,12 +369,17 @@ def stats_page() -> rx.Component:
                 rx.heading(
                     "Your 2024 Wrapped",
                     font_size=["1.8em", "2.5em", "5em"],
-                    color=rx.color_mode_cond("#2962FF", "white"),
                     font_weight="900",
                     text_align="center",
                     margin_bottom=["4", "6", "8"],
                     padding_x="4",
                     line_height=["1.2", "1.3", "1.4"],
+                    css={
+                        "background": "linear-gradient(135deg, rgb(18, 171, 205) 0%, #2962FF 100%)",
+                        "-webkit-background-clip": "text",
+                        "-webkit-text-fill-color": "transparent",
+                        "display": "inline-block",
+                    }
                 ),
                 rx.link(
                     "Skip to stats",
@@ -427,7 +432,7 @@ def stats_page() -> rx.Component:
                         ),
                         rx.hstack(
                             rx.foreach(
-                                State.stats_items,
+                                State.stats_items[:4],  # First row: 4 cards
                                 lambda item: stat_card(
                                     title=item["title"],
                                     value=item["value"],
@@ -437,12 +442,31 @@ def stats_page() -> rx.Component:
                             spacing="4",
                             justify="center",
                             padding_x=["2", "4", "4"],
-                            max_width="100vw",
-                            margin_y=["4", "6", "8"],
+                            margin_y=["2", "4", "4"],
                             flex_wrap="wrap",
                             overflow_x="hidden",
+                            width="100%",
+                        ),
+                        rx.hstack(
+                            rx.foreach(
+                                State.stats_items[4:],  # Second row: remaining cards
+                                lambda item: stat_card(
+                                    title=item["title"],
+                                    value=item["value"],
+                                    description=item["description"]
+                                )
+                            ),
+                            spacing="4",
+                            justify="center",
+                            padding_x=["2", "4", "4"],
+                            margin_y=["2", "4", "4"],
+                            flex_wrap="wrap",
+                            overflow_x="hidden",
+                            width="100%",
                         ),
                         width="100%",
+                        max_width="1200px",
+                        margin_x="auto",
                         padding_y=["4", "6", "8"],
                         spacing="6",
                     ),
@@ -478,14 +502,15 @@ def stats_page() -> rx.Component:
                         _hover={"opacity": 0.9},
                     ),
                     flex_direction=["column", "row", "row"],
-                    spacing="3",  # Fixed single value for spacing
-                    width=["90%", "auto", "auto"],  # Reduced container width on mobile
+                    spacing="3",
+                    width=["90%", "auto", "auto"],
                     align_items="center",
                     justify_content="center",
-                    padding_top="8",
-                    padding_x=["2", "0", "0"],  # Reduced padding on mobile
+                    padding_top=["8", "2", "2"],  # Reduced padding for desktop
+                    margin_top=["0", "-4", "-4"],  # Negative margin to pull buttons up on desktop
+                    padding_x=["2", "0", "0"],
                 ),
-                spacing="6",
+                spacing="4",  # Changed from ["6", "4", "4"] to "4"
                 padding=["4", "6", "8"],
                 align_items="center",
                 width="100%",
