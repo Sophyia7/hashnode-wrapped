@@ -164,7 +164,7 @@ class State(rx.State):
                 stats_summary.append(f"{stat['title']}: {stat['value']}")
         
         stats_text = " | ".join(stats_summary)
-        tweet_text = f"Check out my @hashnode Wrapped 2024!\n\n{stats_text}\n\nGenerate yours at hashnode_wrapped_2-gold-panda.reflex.run by @sophiairoegbu_\n\n#HashnodeWrapped"
+        tweet_text = f"Check out my @hashnode Wrapped 2024!\n\n{stats_text}\n\nGenerate yours at https://hashnode_wrapped_2-gold-panda.reflex.run by @sophiairoegbu_\n\n#HashnodeWrapped"
         
         # URL encode the tweet text
         encoded_text = urllib.parse.quote(tweet_text)
