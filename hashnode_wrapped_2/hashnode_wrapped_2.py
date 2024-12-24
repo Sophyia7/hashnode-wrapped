@@ -192,12 +192,10 @@ def index() -> rx.Component:
             rx.vstack(
                 rx.heading(
                     "Your Hashnode Wrapped",
-                    font_size=["2.5em", "3.5em", "5em"],  # Responsive font sizes for mobile, tablet, desktop
-                    color=rx.color_mode_cond("#2962FF", "white"),
-                    font_weight="900",
+                    font_size=["1.8em", "2.5em", "5em"],  # Smaller font on mobile
+                    padding_x=["4", "6", "8"],  # More padding control
                     text_align="center",
-                    margin_bottom=["1", "2"],  # Adjusted margin for mobile
-                    padding_x="4",  # Add padding for smaller screens
+                    width=["100%", "100%", "auto"],  # Full width on mobile
                 ),
                 rx.heading(
                     "Review 2024",
@@ -259,8 +257,9 @@ def index() -> rx.Component:
                                     font_size="sm",
                                 ),
                             ),
-                            spacing="4",
-                            width="400px",
+                            spacing="4",  # Fixed spacing value
+                            width=["90%", "400px", "400px"],  # Adjusted width for mobile
+                            max_width="90vw",  # Prevent overflow
                             align_items="center",
                             justify_content="center",  # Added justify_content
                         ),
@@ -288,10 +287,11 @@ def index() -> rx.Component:
                         spacing="2",
                     ),
                     margin_top="8",
-                    width="400px",
+                    width=["90%", "400px", "400px"],  # Adjusted width for mobile
+                    max_width="90vw",
                 ),
-                spacing="6",
-                padding="8",
+                spacing="6",  # Fixed spacing value
+                padding=["4", "6", "8"],  # Adjusted padding for mobile
                 align_items="center",
             ),
             bg=rx.color_mode_cond(
@@ -330,14 +330,14 @@ def stat_card(title: str, value: str, description: str) -> rx.Component:
                 font_size="sm",
                 text_align="center",
             ),
-            height=["180px", "220px"],  # Responsive height
-            width=["180px", "220px"],   # Responsive width
+            height=["150px", "180px", "220px"],  # Smaller on mobile
+            width=["150px", "180px", "220px"],   # Smaller on mobile
             align_items="center",
             justify_content="center",
             spacing="4",
             role="article",  
         ),
-        padding="8",
+        padding=["4", "6", "8"],  # Adjusted padding
         border="2px solid",
         border_color=rx.color_mode_cond("gray.300", "gray.600"),  # Improved contrast
         border_radius="2xl",
@@ -362,21 +362,20 @@ def stat_card(title: str, value: str, description: str) -> rx.Component:
 
 
 def stats_page() -> rx.Component:
-    """Show user's Hashnode stats."""
     return rx.box(
         color_mode_button(),
         rx.center(
             rx.vstack(
                 rx.heading(
                     "Your 2024 Wrapped",
-                    font_size=["2.5em", "3.5em", "5em"],  # Responsive font sizes
+                    font_size=["1.8em", "2.5em", "5em"],
                     color=rx.color_mode_cond("#2962FF", "white"),
                     font_weight="900",
                     text_align="center",
-                    margin_bottom=["1", "2"],
+                    margin_bottom=["4", "6", "8"],
                     padding_x="4",
+                    line_height=["1.2", "1.3", "1.4"],
                 ),
-                # Add skip link for keyboard navigation
                 rx.link(
                     "Skip to stats",
                     href="#stats-section",
@@ -387,11 +386,8 @@ def stats_page() -> rx.Component:
                     background="white",
                     padding="2",
                     z_index="999",
-                    _focus={
-                        "top": "0",
-                    },
+                    _focus={"top": "0"},
                 ),
-                # Add loading announcement for screen readers
                 rx.cond(
                     State.is_loading,
                     rx.text(
@@ -402,29 +398,32 @@ def stats_page() -> rx.Component:
                     ),
                 ),
                 rx.cond(
-                    State.user_data,  # Check if we have user data
+                    State.user_data,
                     rx.vstack(
-                        rx.vstack(  # Changed from center to vstack for better control
+                        rx.vstack(
                             rx.heading(
                                 f"@{State.user_display_name}'s Stats",
-                                font_size=["1.5em", "1.8em", "2em"],  # Responsive font sizes
+                                font_size=["1.2em", "1.5em", "2em"],
                                 background_image="linear-gradient(135deg,rgb(18, 171, 205) 0%, #2962FF 100%)",
                                 background_clip="text",
+                                color="transparent",
                                 font_weight="700",
                                 text_align="center",
-                                margin_bottom=["2", "4"],
+                                margin_y=["6", "8", "8"],
                                 padding_x="4",
+                                line_height=["1.2", "1.3", "1.4"],
                             ),
                             rx.text(
-                                f"You were awesome this year!",
+                                "You were awesome this year!",
                                 color=rx.color_mode_cond("gray.600", "gray.400"),
                                 font_size="lg",
                                 margin_bottom="8",
-                                text_align="center",  # Added text alignment
+                                text_align="center",
                             ),
                             width="100%",
-                            align_items="center",  # Center items horizontally
-                            justify_content="center",  # Center items vertically
+                            align_items="center",
+                            justify_content="center",
+                            spacing="4",
                         ),
                         rx.hstack(
                             rx.foreach(
@@ -435,27 +434,32 @@ def stats_page() -> rx.Component:
                                     description=item["description"]
                                 )
                             ),
-                            spacing="8",
+                            spacing="4",
                             justify="center",
-                            padding_x="4",
-                            max_width="1200px",
-                            margin_y="8",
+                            padding_x=["2", "4", "4"],
+                            max_width="100vw",
+                            margin_y=["4", "6", "8"],
                             flex_wrap="wrap",
+                            overflow_x="hidden",
                         ),
+                        width="100%",
+                        padding_y=["4", "6", "8"],
+                        spacing="6",
                     ),
                     rx.vstack(
                         rx.spinner(color="#00b4db", size="2"),
                         rx.text("Loading stats...", color="gray.500"),
+                        spacing="4",
                     ),
                 ),
                 rx.hstack(
                     rx.button(
                         "Share My Wrapped",
-                        on_click=State.share_stats,  
+                        on_click=State.share_stats,
                         background_image="linear-gradient(135deg, #2962FF 0%, #2962FF 100%)",
                         color="white",
                         height="50px",
-                        width="200px",
+                        width=["90%", "200px", "200px"],
                         font_size="1.1em",
                         font_weight="bold",
                         border_radius="lg",
@@ -467,18 +471,21 @@ def stats_page() -> rx.Component:
                         background_image="linear-gradient(135deg, #2962FF 0%, #2962FF 100%)",
                         color="white",
                         height="50px",
-                        width="200px",
+                        width=["90%", "200px", "200px"],
                         font_size="1.1em",
                         font_weight="bold",
                         border_radius="lg",
                         _hover={"opacity": 0.9},
                     ),
+                    flex_direction=["column", "row", "row"],
                     spacing="4",
+                    width=["90%", "auto", "auto"],
                     padding_top="8",
                 ),
                 spacing="6",
-                padding="8",
+                padding=["4", "6", "8"],
                 align_items="center",
+                width="100%",
             ),
             bg=rx.color_mode_cond(
                 "radial-gradient(circle at center, white 0%, #f0f0f0 100%)",
@@ -486,9 +493,9 @@ def stats_page() -> rx.Component:
             ),
             min_height="100vh",
             width="100%",
+            padding=["2", "4", "8"],
         ),
     )
-
 
 # Update the app configuration at the bottom of the file
 app = rx.App(
@@ -504,6 +511,14 @@ app = rx.App(
         "@media (max-width: 768px)": {
             "html": {
                 "font_size": "14px",
+            },
+        },
+        "@media (max-width: 480px)": {
+            "html": {
+                "font_size": "12px",
+            },
+            ".chakra-stack": {
+                "width": "100%",
             },
         },
     },
