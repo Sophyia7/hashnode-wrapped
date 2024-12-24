@@ -458,9 +458,9 @@ def stats_page() -> rx.Component:
                         on_click=State.share_stats,
                         background_image="linear-gradient(135deg, #2962FF 0%, #2962FF 100%)",
                         color="white",
-                        height="50px",
-                        width=["90%", "200px", "200px"],
-                        font_size="1.1em",
+                        height=["40px", "50px", "50px"],  # Reduced height on mobile
+                        width=["80%", "200px", "200px"],  # Reduced width on mobile
+                        font_size=["0.9em", "1.1em", "1.1em"],  # Smaller font on mobile
                         font_weight="bold",
                         border_radius="lg",
                         _hover={"opacity": 0.9},
@@ -470,17 +470,20 @@ def stats_page() -> rx.Component:
                         on_click=lambda: rx.redirect("/"),
                         background_image="linear-gradient(135deg, #2962FF 0%, #2962FF 100%)",
                         color="white",
-                        height="50px",
-                        width=["90%", "200px", "200px"],
-                        font_size="1.1em",
+                        height=["40px", "50px", "50px"],  # Reduced height on mobile
+                        width=["80%", "200px", "200px"],  # Reduced width on mobile
+                        font_size=["0.9em", "1.1em", "1.1em"],  # Smaller font on mobile
                         font_weight="bold",
                         border_radius="lg",
                         _hover={"opacity": 0.9},
                     ),
                     flex_direction=["column", "row", "row"],
-                    spacing="4",
-                    width=["90%", "auto", "auto"],
+                    spacing="3",  # Fixed single value for spacing
+                    width=["90%", "auto", "auto"],  # Reduced container width on mobile
+                    align_items="center",
+                    justify_content="center",
                     padding_top="8",
+                    padding_x=["2", "0", "0"],  # Reduced padding on mobile
                 ),
                 spacing="6",
                 padding=["4", "6", "8"],
